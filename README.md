@@ -144,6 +144,17 @@ Render:
 <div class="class-one class-two"></div>
 ```
 
+### After instantiation
+
+If you need to add classes after instantiation, you can call `addClass()`, which accepts the same string or array as the constructor:
+
+```php
+$tag = Tag::make('div');
+
+$tag->addClass('some-class');
+$tag->addClass(['class2', 'class3'])
+```
+
 ## Attributes
 
 Attributes are passed in as the third parameter. Attributes with values are passed by association. Boolean attributes are simply a value.
@@ -159,6 +170,17 @@ Render:
 
 ```html
 <input value="content" disabled>
+```
+
+### After instantiation
+
+If you need to add attributes after instantiation, you can call `addAttribute()`, which accepts the same array as the constructor:
+
+```php
+$tag = Tag::make('input');
+
+$tag->addAttribute(['autocomplete' => 'off']);
+$tag->addAttribute(['disabled']);
 ```
 
 ### Validation
