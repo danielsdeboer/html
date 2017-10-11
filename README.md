@@ -1,5 +1,6 @@
 ![travis-badge](https://travis-ci.org/danielsdeboer/html.svg?branch=master)
-
+[![Latest Stable Version](https://poser.pugx.org/aviator/html/v/stable)](https://packagist.org/packages/aviator/html)
+[![License](https://poser.pugx.org/aviator/html/license)](https://packagist.org/packages/aviator/html)
 # Html
 
 Html is a simple package for building snippets of valid HTML. It can be used to augment a templating system where you want to encapsulate more logic in a class vs a template file. 
@@ -11,23 +12,31 @@ This package requires PHP 7 or higher.
 
 ### Installing
 
-Install via composer with:
+Via Composer:
 
 ```
 composer require aviator/html
 ``` 
 
+### Testing
+
+Run:
+
+```html
+composer test
+```
+
 ## Usage
 
 ### Tags
 
-To build a block of HTML, simple make a new tag:
+To build a block of HTML, make a new tag:
 
 ```php
 $tag = new Tag('div');
 ```
 
-or using the static constructor:
+Or, using the static constructor:
 
 ```php
 $tag = Tag::make('div');
@@ -39,17 +48,17 @@ To render the tag, call `render()`:
 echo $tag->render();
 ```
 
-which will produce:
+Which produces:
 
 ```html
 <div></div>
 ```
 
-Only valid HTML tags can be created. Creating an invalid tag will throw an exception.
+The `Tag` class will only accept valid HTML tags. Trying to create an invalid tag will throw an exception.
 
 ## Content
 
-Tags can have content, either a string or another tag (which can in turn have its own content).
+Tags can have contents. You can pass in a string, a `Tag`, or an array of either or both.
 
 ### String
 
@@ -105,7 +114,9 @@ Which will render:
 
 ### Void tags
 
-Void tags (`<input>`, `<hr>`, etc) cannot have content. Trying to add content to them will throw an exception.
+The `Tag` class knows which tags are void and need no closing tag. There's no need to do anything for `<input>`, `<hr>`, etc.
+
+Void tags cannot have content. Trying to add content to them will throw an exception.
 
 ## Classes
 
@@ -135,7 +146,7 @@ Render:
 
 ## Attributes
 
-Attributes are passed in as the third parameter. Attributes with values are passed by key => value, with boolean attributes simply a value.
+Attributes are passed in as the third parameter. Attributes with values are passed by association. Boolean attributes are simply a value.
 
 ```php
 $tag = Tag::make('input', 'some-class', [

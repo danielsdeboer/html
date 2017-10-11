@@ -1,5 +1,6 @@
 {
     "name": "aviator/html",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Aviator\\Html\\": "src/"
@@ -19,5 +20,8 @@
         "psr-4": {
             "Aviator\\Html\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
