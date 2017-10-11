@@ -187,4 +187,22 @@ $tag->addAttribute(['disabled']);
 
 Attributes are validated to make sure they belong to the tag you've applied them to. For instance adding the `max` attribute to a `<div>` will throw an exception.
 
+### Getting attribute values
+
+If you want to retrieve an attribute from a `Tag` instance, call `attribute($name)`. If your attribute exists you'll get the value (boolean attributes always return `true`), otherwise you'll get null.
+
+```php
+echo Tag::make('input')->addAttribute(['name' => 'some_name'])->attribute('name');
+
+// Result: 'some_name'
+
+echo Tag::make('input')->addAttribute(['disabled'])->attribute('disabled');
+
+// Result: true
+
+echo Tag::make('input')->attribute('foo');
+
+// Result: null
+```  
+
 

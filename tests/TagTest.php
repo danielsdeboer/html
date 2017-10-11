@@ -236,4 +236,34 @@ class TagTest extends TestCase
 
         $this->assertSame('<div id="some-id" title="A Title"></div>', $tag->render());
     }
+
+    /**
+     * @test
+     */
+    public function getting_an_attribute_value ()
+    {
+        $tag = Tag::make('div', [], ['title' => 'test']);
+
+        $this->assertSame('test', $tag->attribute('title'));
+    }
+
+    /**
+     * @test
+     */
+    public function getting_a_boolean_attribute_value ()
+    {
+        $tag = Tag::make('input', [], ['disabled']);
+
+        $this->assertSame(true, $tag->attribute('disabled'));
+    }
+
+    /**
+     * @test
+     */
+    public function getting_a_nonexistent_attribute_value ()
+    {
+        $tag = Tag::make('input');
+
+        $this->assertSame(null, $tag->attribute('disabled'));
+    }
 }

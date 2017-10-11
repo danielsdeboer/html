@@ -17,9 +17,9 @@ class Attribute implements Renderable
      * Attribute constructor.
      * @param string $tag
      * @param string $name
-     * @param string $value
+     * @param string|bool $value
      */
-    public function __construct (string $tag, string $name, string $value = null)
+    public function __construct (string $tag, string $name, $value = true)
     {
         $this->setName($tag, $name);
         $this->setValue($value);
@@ -29,10 +29,10 @@ class Attribute implements Renderable
      * Static constructor.
      * @param string $tag
      * @param string $name
-     * @param string $value
+     * @param string|bool $value
      * @return \Aviator\Html\Attribute
      */
-    public static function make (string $tag, string $name, string $value = null)
+    public static function make (string $tag, string $name, $value = true)
     {
         return new self($tag, $name, $value);
     }
@@ -57,10 +57,10 @@ class Attribute implements Renderable
     }
 
     /**
-     * @param string $value
+     * @param string|bool $value
      * @return $this
      */
-    public function setValue (string $value = null)
+    public function setValue ($value)
     {
         $this->value = $value;
 
@@ -68,7 +68,7 @@ class Attribute implements Renderable
     }
 
     /**
-     * @return null|string
+     * @return string|bool
      */
     public function getValue ()
     {
@@ -81,7 +81,7 @@ class Attribute implements Renderable
      */
     public function render () : string
     {
-        return is_null($this->value)
+        return is_bool($this->value)
             ? $this->name
             : $this->name . '="' . $this->value . '"';
     }
