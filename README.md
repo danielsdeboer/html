@@ -1,3 +1,5 @@
+![travis-badge](https://travis-ci.org/danielsdeboer/html.svg?branch=master)
+
 # Html
 
 Html is a simple package for building snippets of valid HTML. It can be used to augment a templating system where you want to encapsulate more logic in a class vs a template file. 
