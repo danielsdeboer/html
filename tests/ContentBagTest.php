@@ -58,6 +58,19 @@ class ContentBagTest extends TestCase
     /**
      * @test
      */
+    public function rendering_multiple_tag_content ()
+    {
+        $bag = ContentBag::make([
+            Tag::make('li')->with('content1'),
+            Tag::make('li')->with('content2'),
+        ]);
+
+        $this->assertSame('<li>content1</li><li>content2</li>', $bag->render());
+    }
+
+    /**
+     * @test
+     */
     public function rendering_mixed_content ()
     {
         $tag = Tag::make('div');

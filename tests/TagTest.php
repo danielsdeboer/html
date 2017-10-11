@@ -120,6 +120,19 @@ class TagTest extends TestCase
     /**
      * @test
      */
+    public function rendering_a_tag_with_multiple_renderables ()
+    {
+        $tag = Tag::make('ul')->with([
+            Tag::make('li')->with('content1'),
+            Tag::make('li')->with('content2'),
+        ]);
+
+        $this->assertSame('<ul><li>content1</li><li>content2</li></ul>', $tag->render());
+    }
+
+    /**
+     * @test
+     */
     public function rendering_a_tag_with_mixed_content ()
     {
         $content1 = Tag::make('p');
