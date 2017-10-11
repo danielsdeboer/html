@@ -262,5 +262,10 @@ class Tag implements Renderable
         if ($name === 'attributes') {
             return $this->attributeDelegator();
         }
+
+        /*
+         * Raise the error as normal otherwise.
+         */
+        trigger_error('Undefined property: ' . self::class . '::' . $name);
     }
 }
