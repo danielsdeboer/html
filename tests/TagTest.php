@@ -182,4 +182,58 @@ class TagTest extends TestCase
 
         $tag = Tag::make('input')->with('content');
     }
+
+    /**
+     * @test
+     */
+    public function adding_a_class ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addClass('some-class');
+
+        $this->assertSame('<div class="some-class"></div>', $tag->render());
+    }
+
+    /**
+     * @test
+     */
+    public function adding_multiple_classes ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addClass('class1');
+        $tag->addClass('class2');
+        $tag->addClass([
+           'class3',
+           'class4'
+        ]);
+
+        $this->assertSame('<div class="class1 class2 class3 class4"></div>', $tag->render());
+    }
+
+    /**
+     * @test
+     */
+    public function adding_an_attribute ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addAttribute(['id' => 'some-id']);
+
+        $this->assertSame('<div id="some-id"></div>', $tag->render());
+    }
+
+    /**
+     * @test
+     */
+    public function adding_multiple_attributes ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addAttribute(['id' => 'some-id']);
+        $tag->addAttribute(['title' => 'A Title']);
+
+        $this->assertSame('<div id="some-id" title="A Title"></div>', $tag->render());
+    }
 }

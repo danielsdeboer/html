@@ -84,12 +84,39 @@ class Tag implements Renderable
 
     /**
      * @param $content
+     * @return $this
      */
     public function addContent ($content)
     {
-        $content = is_array($content) ? $content : [$content];
+        $content = $this->asArray($content);
 
         $this->content->many($content);
+
+        return $this;
+    }
+
+    /**
+     * @param $class
+     * @return $this
+     */
+    public function addClass ($class)
+    {
+        $class = $this->asArray($class);
+
+        $this->classes->many($class);
+
+        return $this;
+    }
+
+    /**
+     * @param $attributes
+     * @return $this
+     */
+    public function addAttribute (array $attributes)
+    {
+        $this->attributes->many($attributes);
+
+        return $this;
     }
 
     /**
@@ -183,5 +210,15 @@ class Tag implements Renderable
             $this->name,
             self::HTML_CLOSE,
         ]);
+    }
+
+    /**
+     * If the parameter isn't an array, make it one.
+     * @param $value
+     * @return array
+     */
+    protected function asArray ($value) : array
+    {
+        return is_array($value) ? $value : [$value];
     }
 }
