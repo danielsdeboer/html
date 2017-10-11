@@ -9,6 +9,11 @@ use Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException;
 use Aviator\Html\Interfaces\Renderable;
 use Aviator\Html\Validators\TagValidator;
 
+/**
+ * Class Tag
+ * @package Aviator\Html
+ * @property \Aviator\Html\Delegator attributes
+ */
 class Tag implements Renderable
 {
     const HTML_OPEN = '<';
@@ -235,5 +240,32 @@ class Tag implements Renderable
     protected function asArray ($value) : array
     {
         return is_array($value) ? $value : [$value];
+    }
+
+    /**
+     * Get an attribute delegator.
+     * @return \Aviator\Html\Delegator
+     */
+    protected function attributeDelegator ()
+    {
+        return new Delegator($this->attributes, function($items, $name) {
+            return $items->value($name);
+        });
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get ($name)
+    {
+        if ($name === 'attributes') {
+            return $this->attributeDelegator();
+        }
+
+        /*
+         * Raise the error as normal otherwise.
+         */
+        trigger_error('Undefined property: ' . self::class . '::' . $name);
     }
 }
