@@ -11,7 +11,8 @@
     },
     "require": {
         "php" : ">=7.0.0",
-        "cocur/slugify": "^3.0"
+        "cocur/slugify": "^3.0",
+        "aviator/delegate": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.4.0"
