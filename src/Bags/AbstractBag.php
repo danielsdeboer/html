@@ -7,9 +7,6 @@ use Aviator\Html\Interfaces\Renderable;
 
 abstract class AbstractBag implements Renderable, Bag
 {
-    /** @var string */
-    protected $name = 'abstract-bag';
-
     /** @var \Aviator\Html\Interfaces\Renderable[] */
     protected $items = [];
 
@@ -35,15 +32,6 @@ abstract class AbstractBag implements Renderable, Bag
     }
 
     /**
-     * Get a name.
-     * @return string
-     */
-    public function getName () :string
-    {
-        return $this->name;
-    }
-
-    /**
      * Get an attribute instance by name.
      * @param $name
      * @return Renderable|null
@@ -62,7 +50,14 @@ abstract class AbstractBag implements Renderable, Bag
      */
     public function add (Renderable $item)
     {
-        $this->items[$item->getName()] = $item;
+        /*
+         * Some renderables are unique and callable by key (eg Attribute)
+         */
+        if (method_exists($item, 'getKey')) {
+            $this->items[$item->getKey()] = $item;
+        } else {
+            $this->items[] = $item;
+        }
 
         return $this;
     }

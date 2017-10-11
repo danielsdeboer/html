@@ -9,10 +9,4 @@ interface Renderable
      * @return string
      */
     public function render () : string;
-
-    /**
-     * Get a name. All renderables are baggable and need a key.
-     * @return string
-     */
-    public function getName () : string;
 }
