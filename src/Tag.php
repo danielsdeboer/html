@@ -120,6 +120,21 @@ class Tag implements Renderable
     }
 
     /**
+     * Get an attribute value by name.
+     * @param $name
+     * @return string|bool|null
+     */
+    public function attribute ($name)
+    {
+        /** @var \Aviator\Html\Attribute $attribute */
+        $attribute = $this->attributes->get($name);
+
+        return $attribute
+            ? $attribute->getValue()
+            : null;
+    }
+
+    /**
      * @param array|string|\Aviator\Html\Interfaces\Renderable $contents
      * @return $this
      * @throws \Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException
