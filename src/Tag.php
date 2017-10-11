@@ -2,6 +2,7 @@
 
 namespace Aviator\Html;
 
+use Aviator\Delegate\Delegate;
 use Aviator\Html\Bags\AttributeBag;
 use Aviator\Html\Bags\ClassBag;
 use Aviator\Html\Bags\ContentBag;
@@ -244,11 +245,11 @@ class Tag implements Renderable
 
     /**
      * Get an attribute delegator.
-     * @return \Aviator\Html\Delegator
+     * @return Delegate
      */
     protected function attributeDelegator ()
     {
-        return new Delegator($this->attributes, function($items, $name) {
+        return new Delegate($this->attributes, function(AttributeBag $items, $name) {
             return $items->value($name);
         });
     }
@@ -266,6 +267,6 @@ class Tag implements Renderable
         /*
          * Raise the error as normal otherwise.
          */
-        trigger_error('Undefined property: ' . self::class . '::' . $name);
+        return trigger_error('Undefined property: ' . self::class . '::' . $name);
     }
 }
