@@ -43,6 +43,8 @@ which will produce:
 <div></div>
 ```
 
+Only valid HTML tags can be created. Creating an invalid tag will throw an exception.
+
 ## Content
 
 Tags can have content, either a string or another tag (which can in turn have its own content).
@@ -71,7 +73,7 @@ $tag = Tag::make('div')->with(
 );
 ```
 
-This will render:
+Render:
 
 ```html
 <div><p>some content</p></div>
@@ -111,13 +113,13 @@ To specify CSS classes for your tags, pass in a second parameter:
 $tag = Tag::make('div', 'some-class');
 ```
 
-Which will render:
+Render:
 
 ```html
 <div class="some-class"></div>
 ```
 
-Multiple classes are passed in as an array:
+Multiple classes may be passed in via array:
 
 ```php
 $tag = Tag::make('div', ['class-one', 'class-two'])
