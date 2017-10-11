@@ -279,4 +279,14 @@ class TagTest extends TestCase
 
         $this->assertSame(null, $tag->attribute('disabled'));
     }
+
+    /**
+     * @test
+     */
+    public function getting_attributes_via_the_magic_attributes_property ()
+    {
+        $tag = Tag::make('input', 'input', ['name' => 'test1']);
+
+        $this->assertSame('test1', $tag->attributes->name);
+    }
 }
