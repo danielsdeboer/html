@@ -4,6 +4,7 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\ClassAttribute;
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 
 class ClassBag extends AbstractBag
 {

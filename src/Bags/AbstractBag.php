@@ -4,9 +4,12 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\Interfaces\Bag;
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 
 abstract class AbstractBag implements Renderable, Bag
 {
+    use HasToString;
+
     /** @var \Aviator\Html\Interfaces\Renderable[] */
     protected $items = [];
 

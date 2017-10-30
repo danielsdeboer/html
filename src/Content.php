@@ -3,9 +3,12 @@
 namespace Aviator\Html;
 
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 
 class Content implements Renderable
 {
+    use HasToString;
+
     /**
      * @var string
      */
