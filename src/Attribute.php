@@ -3,10 +3,13 @@
 namespace Aviator\Html;
 
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 use Aviator\Html\Validators\AttributeValidator;
 
 class Attribute implements Renderable
 {
+    use HasToString;
+
     /** @var string */
     protected $name;
 

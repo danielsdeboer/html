@@ -4,6 +4,7 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\Content;
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 
 class ContentBag extends AbstractBag
 {

@@ -8,15 +8,13 @@ use Aviator\Html\Bags\ClassBag;
 use Aviator\Html\Bags\ContentBag;
 use Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException;
 use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Traits\HasToString;
 use Aviator\Html\Validators\TagValidator;
 
-/**
- * Class Tag
- * @package Aviator\Html
- * @property \Aviator\Html\Delegator attributes
- */
 class Tag implements Renderable
 {
+    use HasToString;
+
     const HTML_OPEN = '<';
     const HTML_CLOSE = '>';
     const TAG_CLOSE = '/';

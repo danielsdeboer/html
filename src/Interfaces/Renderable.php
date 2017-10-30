@@ -9,4 +9,10 @@ interface Renderable
      * @return string
      */
     public function render () : string;
+
+    /**
+     * Return a html string representation of the object.
+     * @return string
+     */
+    public function __toString () : string;
 }
