@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TagTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_tag ()
     {
         $tag = new Tag('div');
@@ -19,9 +17,7 @@ class TagTest extends TestCase
         $this->assertInstanceOf(Tag::class, $tag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_tag_via_static_constructor ()
     {
         $tag = Tag::make('div');
@@ -29,9 +25,7 @@ class TagTest extends TestCase
         $this->assertInstanceOf(Tag::class, $tag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_an_invalid_tag_throws_an_error ()
     {
         $this->expectException(ValidationException::class);
@@ -39,9 +33,7 @@ class TagTest extends TestCase
         $tag = Tag::make('garbage');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag ()
     {
         $tag = Tag::make('div');
@@ -51,9 +43,7 @@ class TagTest extends TestCase
         $this->assertSame('<div></div>', $string);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_an_attribute ()
     {
         $tag = Tag::make('div', [], ['id' => 'identifier']);
@@ -63,9 +53,7 @@ class TagTest extends TestCase
         $this->assertSame('<div id="identifier"></div>', $string);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_multiple_attributes ()
     {
         $tag = Tag::make('div', [], [
@@ -76,9 +64,7 @@ class TagTest extends TestCase
         $this->assertSame('<div id="identifier" title="A Div"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_a_class ()
     {
         $tag = Tag::make('div', 'test-class');
@@ -86,9 +72,7 @@ class TagTest extends TestCase
         $this->assertSame('<div class="test-class"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_multiple_classes ()
     {
         $tag = Tag::make('div', ['test-class', 'another-class']);
@@ -96,9 +80,7 @@ class TagTest extends TestCase
         $this->assertSame('<div class="test-class another-class"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_string_content ()
     {
         $tag = Tag::make('div')->with('some content');
@@ -106,9 +88,7 @@ class TagTest extends TestCase
         $this->assertSame('<div>some content</div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_renderable_content ()
     {
         $content = Tag::make('p', [], ['id' => 'text']);
@@ -117,9 +97,7 @@ class TagTest extends TestCase
         $this->assertSame('<div><p id="text"></p></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_multiple_renderables ()
     {
         $tag = Tag::make('ul')->with([
@@ -130,9 +108,7 @@ class TagTest extends TestCase
         $this->assertSame('<ul><li>content1</li><li>content2</li></ul>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_mixed_content ()
     {
         $content1 = Tag::make('p');
@@ -142,9 +118,7 @@ class TagTest extends TestCase
         $this->assertSame('<div><p></p>some text</div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_nested_content ()
     {
         $content1 = Tag::make('p', [], ['id' => '1'])->with(
@@ -161,9 +135,7 @@ class TagTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_tag_with_classes_attributes_and_content ()
     {
         $tag = Tag::make('select', ['select'], ['name' => 'something'])->with([
@@ -176,9 +148,7 @@ class TagTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_void_tag ()
     {
         $tag = Tag::make('input');
@@ -186,9 +156,7 @@ class TagTest extends TestCase
         $this->assertSame('<input>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function void_tags_may_not_have_content ()
     {
         $this->expectException(VoidTagsMayNotHaveContentException::class);
@@ -196,9 +164,7 @@ class TagTest extends TestCase
         $tag = Tag::make('input')->with('content');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function adding_a_class ()
     {
         $tag = Tag::make('div');
@@ -208,9 +174,7 @@ class TagTest extends TestCase
         $this->assertSame('<div class="some-class"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function adding_multiple_classes ()
     {
         $tag = Tag::make('div');
@@ -225,9 +189,7 @@ class TagTest extends TestCase
         $this->assertSame('<div class="class1 class2 class3 class4"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function adding_an_attribute ()
     {
         $tag = Tag::make('div');
@@ -237,9 +199,7 @@ class TagTest extends TestCase
         $this->assertSame('<div id="some-id"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function adding_multiple_attributes ()
     {
         $tag = Tag::make('div');
@@ -250,9 +210,7 @@ class TagTest extends TestCase
         $this->assertSame('<div id="some-id" title="A Title"></div>', $tag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function getting_an_attribute_value ()
     {
         $tag = Tag::make('div', [], ['title' => 'test']);
@@ -260,9 +218,7 @@ class TagTest extends TestCase
         $this->assertSame('test', $tag->attribute('title'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function getting_a_boolean_attribute_value ()
     {
         $tag = Tag::make('input', [], ['disabled']);
@@ -270,9 +226,7 @@ class TagTest extends TestCase
         $this->assertSame(true, $tag->attribute('disabled'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function getting_a_nonexistent_attribute_value ()
     {
         $tag = Tag::make('input');
@@ -280,13 +234,21 @@ class TagTest extends TestCase
         $this->assertSame(null, $tag->attribute('disabled'));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function getting_attributes_via_the_magic_attributes_property ()
     {
         $tag = Tag::make('input', 'input', ['name' => 'test1']);
 
-        $this->assertSame('test1', $tag->attributes->name);
+        $this->assertSame('test1', $tag->attribute('name'));
+    }
+
+    /** @test */
+    public function calling_a_tag_as_a_static_method_returns_that_tag ()
+    {
+        $table = Tag::table('table', ['id' => 'the-table']);
+        $div = Tag::div()->with('test text');
+
+        $this->assertSame('<table class="table" id="the-table"></table>', $table->render());
+        $this->assertSame('<div>test text</div>', $div->render());
     }
 }

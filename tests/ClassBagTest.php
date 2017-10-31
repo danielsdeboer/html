@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClassBagTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_class_bag ()
     {
         $bag = new ClassBag([]);
@@ -17,9 +15,7 @@ class ClassBagTest extends TestCase
         $this->assertInstanceOf(ClassBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_class_bag_with_static_constructor ()
     {
         $bag = ClassBag::make([]);
@@ -27,9 +23,7 @@ class ClassBagTest extends TestCase
         $this->assertInstanceOf(ClassBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_class_bag_with_a_string ()
     {
         $bag = ClassBag::make('string');
@@ -37,9 +31,7 @@ class ClassBagTest extends TestCase
         $this->assertSame('class="string"', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_a_class_bag_with_an_array ()
     {
         $bag = ClassBag::make(['string1', 'string2']);
@@ -47,9 +39,7 @@ class ClassBagTest extends TestCase
         $this->assertSame('class="string1 string2"', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_a_class_bag ()
     {
         $bag = ClassBag::make(['class1', 'class2']);

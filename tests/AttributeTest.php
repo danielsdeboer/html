@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class AttributeTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_an_attribute ()
     {
         $attr = new Attribute('input', 'name', 'test');
@@ -19,9 +17,7 @@ class AttributeTest extends TestCase
         $this->assertInstanceOf(Attribute::class, $attr);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_an_attribute_with_static_constructor ()
     {
         $attr = Attribute::make('input', 'name', 'test');
@@ -29,9 +25,7 @@ class AttributeTest extends TestCase
         $this->assertInstanceOf(Attribute::class, $attr);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function attribute_must_exist ()
     {
         $this->expectException(AttributeDoesNotExist::class);
@@ -39,9 +33,7 @@ class AttributeTest extends TestCase
         Attribute::make('input', 'garbage', 'value');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function attribute_must_match_tag ()
     {
         $this->expectException(AttributeDoesNotMatchTag::class);
@@ -49,9 +41,7 @@ class AttributeTest extends TestCase
         Attribute::make('input', 'action', 'value');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_an_attribute_with_a_value ()
     {
         $attr = Attribute::make('input', 'name', 'test');
@@ -59,9 +49,7 @@ class AttributeTest extends TestCase
         $this->assertSame('name="test"', $attr->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_an_attribute_without_a_value ()
     {
         $attr = Attribute::make('input', 'disabled');

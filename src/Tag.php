@@ -267,4 +267,14 @@ class Tag implements Renderable
          */
         return trigger_error('Undefined property: ' . self::class . '::' . $name);
     }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return \Aviator\Html\Tag
+     */
+    public static function __callStatic ($name, $arguments)
+    {
+        return new static($name, ...$arguments);
+    }
 }

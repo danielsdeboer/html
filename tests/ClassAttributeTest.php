@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClassAttributeTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_with_static_constructor ()
     {
         $class = ClassAttribute::make('some-class');
@@ -23,9 +21,7 @@ class ClassAttributeTest extends TestCase
         $this->assertInstanceOf(ClassAttribute::class, $class);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_the_attribute ()
     {
         $class = ClassAttribute::make('some-class');
