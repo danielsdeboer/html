@@ -36,4 +36,12 @@ class ContentTest extends TestCase
 
         $this->assertSame('test', $content->render());
     }
+
+    /** @test */
+    public function content_is_escaped ()
+    {
+        $content = Content::make('<br>');
+
+        $this->assertSame('&lt;br&gt;', $content->render());
+    }
 }

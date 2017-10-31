@@ -47,6 +47,6 @@ class Content implements Renderable
      */
     public function render () : string
     {
-        return $this->content;
+        return htmlspecialchars($this->content, ENT_QUOTES, 'UTF-8', false);
     }
 }
