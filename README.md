@@ -42,6 +42,18 @@ Or, using the static constructor:
 $tag = Tag::make('div');
 ```
 
+Or, using magic static calls:
+
+```php
+$tag = Tag::div();
+```
+
+Or, using the global helper function:
+
+```php 
+$tag = tag('div');
+```
+
 To render the tag, call `render()`:
 
 ```php
@@ -60,12 +72,12 @@ The `Tag` class will only accept valid HTML tags. Trying to create an invalid ta
 
 Tags can have contents. You can pass in a string, a `Tag`, or an array of either or both.
 
-### String
+### Strings
 
 Use the `with()` method to add content to a tag:
 
 ```php
-$tag = Tag::make('div')->with('some content');
+$tag = tag('div')->with('some content');
 ```
 
 This will render as:
@@ -74,13 +86,15 @@ This will render as:
 <div>some content</div>
 ```
 
+Additionally, `with()` will attempt to get a string representation of any non-string, non-renderable passed in, including objects that implement `__toString()`. 
+
 ### Nested Tag
 
 Tags can be nested:
 
 ```php
-$tag = Tag::make('div')->with(
-    Tag::make('p')->with('some content')
+$tag = tag('div')->with(
+    tag('p')->with('some content')
 );
 ```
 
@@ -95,9 +109,9 @@ Render:
 You can also use an array:
 
 ```php
-$tag = Tag::make('ul')->with([
-    Tag::make('li')->with('list item 1'),
-    Tag::make('li')->with('list item 2'),
+$tag = tag('ul')->with([
+    tag('li')->with('list item 1'),
+    tag('li')->with('list item 2'),
     'misplaced text',
 ]);
 ```
@@ -118,12 +132,12 @@ The `Tag` class knows which tags are void and need no closing tag. There's no ne
 
 Void tags cannot have content. Trying to add content to them will throw an exception.
 
-## Classes
+## CSS Classes
 
 To specify CSS classes for your tags, pass in a second parameter:
 
 ```php
-$tag = Tag::make('div', 'some-class');
+$tag = tag('div', 'some-class');
 ```
 
 Render:
@@ -132,10 +146,10 @@ Render:
 <div class="some-class"></div>
 ```
 
-Multiple classes may be passed in via array:
+Multiple CSS classes may be passed in via array:
 
 ```php
-$tag = Tag::make('div', ['class-one', 'class-two'])
+$tag = tag('div', ['class-one', 'class-two'])
 ```
 
 Render:
@@ -149,10 +163,10 @@ Render:
 If you need to add classes after instantiation, you can call `addClass()`, which accepts the same string or array as the constructor:
 
 ```php
-$tag = Tag::make('div');
+$tag = tag('div');
 
 $tag->addClass('some-class');
-$tag->addClass(['class2', 'class3'])
+$tag->addClass(['class2', 'class3']);
 ```
 
 ## Attributes
@@ -160,7 +174,7 @@ $tag->addClass(['class2', 'class3'])
 Attributes are passed in as the third parameter. Attributes with values are passed by association. Boolean attributes are simply a value.
 
 ```php
-$tag = Tag::make('input', 'some-class', [
+$tag = tag('input', 'some-class', [
     'value' => 'content',
     'disabled'
 ]);
@@ -177,7 +191,7 @@ Render:
 If you need to add attributes after instantiation, you can call `addAttribute()`, which accepts the same array as the constructor:
 
 ```php
-$tag = Tag::make('input');
+$tag = tag('input');
 
 $tag->addAttribute(['autocomplete' => 'off']);
 $tag->addAttribute(['disabled']);
@@ -192,15 +206,15 @@ Attributes are validated to make sure they belong to the tag you've applied them
 If you want to retrieve an attribute from a `Tag` instance, call `attribute($name)`. If your attribute exists you'll get the value (boolean attributes always return `true`), otherwise you'll get null.
 
 ```php
-echo Tag::make('input')->addAttribute(['name' => 'some_name'])->attribute('name');
+echo tag('input')->addAttribute(['name' => 'some_name'])->attribute('name');
 
 // Result: 'some_name'
 
-echo Tag::make('input')->addAttribute(['disabled'])->attribute('disabled');
+echo tag('input')->addAttribute(['disabled'])->attribute('disabled');
 
 // Result: true
 
-echo Tag::make('input')->attribute('foo');
+echo tag('input')->attribute('foo');
 
 // Result: null
 ```  
