@@ -4,7 +4,6 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\Content;
 use Aviator\Html\Interfaces\Renderable;
-use Aviator\Html\Traits\HasToString;
 
 class ContentBag extends AbstractBag
 {
@@ -12,18 +11,20 @@ class ContentBag extends AbstractBag
     protected $name = 'content-bag';
 
     /**
+     * Add many items. If the given array includes non-renderable items,
+     * attempt to create a renderable with the string value of each.
      * @param array $items
      * @return $this
      */
     public function many (array $items)
     {
         foreach ($items as $item) {
-            if (is_string($item) || is_null($item)) {
-                $this->add(
-                    Content::make($item)
-                );
-            } else {
+            if ($item instanceof Renderable){
                 $this->add($item);
+            } else {
+                $this->add(
+                    Content::make(strval($item))
+                );
             }
         }
 

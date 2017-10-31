@@ -1,5 +1,7 @@
 <?php
 
+use Aviator\Html\Tag;
+
 if (!function_exists('dd')) {
     /**
      * Die and dump.
@@ -21,5 +23,19 @@ if (!function_exists('toSlug')) {
     function toSlug($string)
     {
         return (new \Cocur\Slugify\Slugify())->slugify($string);
+    }
+}
+
+if (!function_exists('tag')) {
+    /**
+     * Get a tag instance.
+     * @param string $name
+     * @param array $classes
+     * @param array $attributes
+     * @return \Aviator\Html\Tag
+     */
+    function tag ($name, $classes = [], $attributes = [])
+    {
+        return new Tag($name, $classes, $attributes);
     }
 }

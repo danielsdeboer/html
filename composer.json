@@ -15,7 +15,8 @@
         "aviator/delegate": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.4.0"
+        "phpunit/phpunit": "~6.4.0",
+        "nesbot/carbon": "^1.22"
     },
     "autoload-dev": {
         "psr-4": {
