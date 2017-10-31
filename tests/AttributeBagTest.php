@@ -8,9 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AttributeBagTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_an_attribute_bag ()
     {
         $bag = new AttributeBag('input', []);
@@ -18,9 +16,7 @@ class AttributeBagTest extends TestCase
         $this->assertInstanceOf(AttributeBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_an_attribute_bag_with_static_constructor ()
     {
         $bag = AttributeBag::make('input', []);
@@ -28,9 +24,7 @@ class AttributeBagTest extends TestCase
         $this->assertInstanceOf(AttributeBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function setting_attributes_and_getting_attributes ()
     {
         $bag = AttributeBag::make('input', ['name' => 'test']);
@@ -42,9 +36,7 @@ class AttributeBagTest extends TestCase
         $this->assertInstanceOf(Attribute::class, $attr);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function setting_a_boolean_attribute ()
     {
         $bag = AttributeBag::make('input', ['disabled']);
@@ -52,9 +44,7 @@ class AttributeBagTest extends TestCase
         $this->assertSame('disabled', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_the_bag ()
     {
         $bag = AttributeBag::make('input', ['name' => 'test', 'id' => 'test2']);

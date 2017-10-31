@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ContentBagTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_content_bag ()
     {
         $bag = new ContentBag([]);
@@ -24,9 +22,7 @@ class ContentBagTest extends TestCase
         $this->assertInstanceOf(ContentBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_content_bag_with_static_constructor ()
     {
         $bag = ContentBag::make([]);
@@ -34,9 +30,7 @@ class ContentBagTest extends TestCase
         $this->assertInstanceOf(ContentBag::class, $bag);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_string_content ()
     {
         $bag = ContentBag::make(['here is some string content']);
@@ -44,9 +38,7 @@ class ContentBagTest extends TestCase
         $this->assertSame('here is some string content', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_tag_content ()
     {
         $tag = Tag::make('div');
@@ -55,9 +47,7 @@ class ContentBagTest extends TestCase
         $this->assertSame('<div></div>', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_multiple_tag_content ()
     {
         $bag = ContentBag::make([
@@ -68,9 +58,7 @@ class ContentBagTest extends TestCase
         $this->assertSame('<li>content1</li><li>content2</li>', $bag->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_mixed_content ()
     {
         $tag = Tag::make('div');

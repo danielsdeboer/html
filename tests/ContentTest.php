@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_content ()
     {
         $content = new Content('test');
@@ -23,9 +21,7 @@ class ContentTest extends TestCase
         $this->assertInstanceOf(Content::class, $content);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function creating_content_with_static_constructor ()
     {
         $content = Content::make('test');
@@ -33,9 +29,7 @@ class ContentTest extends TestCase
         $this->assertInstanceOf(Content::class, $content);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function rendering_content ()
     {
         $content = Content::make('test');
