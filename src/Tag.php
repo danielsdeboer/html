@@ -6,7 +6,7 @@ use Aviator\Delegate\Delegate;
 use Aviator\Html\Bags\AttributeBag;
 use Aviator\Html\Bags\ClassBag;
 use Aviator\Html\Bags\ContentBag;
-use Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException;
+use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
 use Aviator\Html\Interfaces\Renderable;
 use Aviator\Html\Traits\HasToString;
 use Aviator\Html\Validators\TagValidator;
@@ -141,13 +141,14 @@ class Tag implements Renderable
     /**
      * @param array|string|\Aviator\Html\Interfaces\Renderable $contents
      * @return $this
-     * @throws \Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException
+     * @throws \Aviator\Html\Exceptions\VoidTagsMayNotHaveContent
      */
     public function with ($contents)
     {
         if ($this->isVoid()) {
-            throw new VoidTagsMayNotHaveContentException('"' . $this->name . '"is a void tag and may not have content.');
+            throw new VoidTagsMayNotHaveContent('"' . $this->name . '"is a void tag and may not have content.');
         }
+
         if (is_array($contents)) {
             $this->content->many($contents);
         } else {

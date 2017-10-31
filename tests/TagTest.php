@@ -2,8 +2,9 @@
 
 namespace Aviator\Html\Tests;
 
+use Aviator\Html\Content;
 use Aviator\Html\Exceptions\ValidationException;
-use Aviator\Html\Exceptions\VoidTagsMayNotHaveContentException;
+use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
 use Aviator\Html\Tag;
 use PHPUnit\Framework\TestCase;
 
@@ -98,6 +99,17 @@ class TagTest extends TestCase
     }
 
     /** @test */
+    public function rendering_a_tag_with_content_class ()
+    {
+        $content1 = Content::make('<br>');
+        $content2 = Content::make('<br>', false);
+
+        $tag = Tag::make('div')->with([$content1, $content2]);
+
+        $this->assertSame('<div>&lt;br&gt;<br></div>', $tag->render());
+    }
+
+    /** @test */
     public function rendering_a_tag_with_multiple_renderables ()
     {
         $tag = Tag::make('ul')->with([
@@ -159,7 +171,7 @@ class TagTest extends TestCase
     /** @test */
     public function void_tags_may_not_have_content ()
     {
-        $this->expectException(VoidTagsMayNotHaveContentException::class);
+        $this->expectException(VoidTagsMayNotHaveContent::class);
 
         $tag = Tag::make('input')->with('content');
     }

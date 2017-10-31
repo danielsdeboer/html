@@ -9,28 +9,32 @@ class Content implements Renderable
 {
     use HasToString;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $content;
+
+    /** @var bool */
+    private $escaped;
 
     /**
      * Content constructor.
      * @param string $content
+     * @param bool $escaped
      */
-    public function __construct (string $content)
+    public function __construct (string $content, bool $escaped = true)
     {
         $this->content = $content;
+        $this->escaped = $escaped;
     }
 
     /**
      * Static constructor.
      * @param string $content
+     * @param bool $escaped
      * @return \Aviator\Html\Content
      */
-    public static function make (string $content)
+    public static function make (string $content, bool $escaped = true)
     {
-        return new self($content);
+        return new self($content, $escaped);
     }
 
     /**
@@ -46,6 +50,16 @@ class Content implements Renderable
      * @return string
      */
     public function render () : string
+    {
+        return $this->escaped
+            ? $this->escapedContent()
+            : $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    protected function escapedContent ()
     {
         return htmlspecialchars($this->content, ENT_QUOTES, 'UTF-8', false);
     }
