@@ -38,10 +38,18 @@ class ContentTest extends TestCase
     }
 
     /** @test */
-    public function content_is_escaped ()
+    public function content_is_escaped_by_default ()
     {
         $content = Content::make('<br>');
 
         $this->assertSame('&lt;br&gt;', $content->render());
+    }
+
+    /** @test */
+    public function content_is_optionally_unescaped ()
+    {
+        $content = Content::make('<br>', false);
+
+        $this->assertSame('<br>', $content->render());
     }
 }
