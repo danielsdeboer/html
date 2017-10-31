@@ -263,4 +263,12 @@ class TagTest extends TestCase
         $this->assertSame('<table class="table" id="the-table"></table>', $table->render());
         $this->assertSame('<div>test text</div>', $div->render());
     }
+
+    /** @test */
+    public function tag_content_may_be_null ()
+    {
+        $div = Tag::make('div')->with(null);
+
+        $this->assertSame('<div></div>', $div->render());
+    }
 }

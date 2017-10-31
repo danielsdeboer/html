@@ -18,7 +18,7 @@ class ContentBag extends AbstractBag
     public function many (array $items)
     {
         foreach ($items as $item) {
-            if (is_string($item)) {
+            if (is_string($item) || is_null($item)) {
                 $this->add(
                     Content::make($item)
                 );
