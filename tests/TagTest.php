@@ -6,6 +6,7 @@ use Aviator\Html\Content;
 use Aviator\Html\Exceptions\ValidationException;
 use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
 use Aviator\Html\Tag;
+use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 
 class TagTest extends TestCase
@@ -270,5 +271,27 @@ class TagTest extends TestCase
         $div = Tag::make('div')->with(null);
 
         $this->assertSame('<div></div>', $div->render());
+    }
+
+    /** @test */
+    public function getting_a_tag_with_the_tag_function ()
+    {
+        $div = tag('div');
+
+        $this->assertSame('<div></div>', $div->render());
+    }
+
+    /** @test */
+    public function getting_string_values ()
+    {
+        $dt = Carbon::parse('1981-08-12');
+
+        $div1 = tag('div')->with(1);
+        $div2 = tag('div')->with(2.222);
+        $div3 = tag('div')->with($dt);
+
+        $this->assertSame('<div>1</div>', $div1->render());
+        $this->assertSame('<div>2.222</div>', $div2->render());
+        $this->assertSame('<div>' . $dt->toDateTimeString() . '</div>', $div3->render());
     }
 }
