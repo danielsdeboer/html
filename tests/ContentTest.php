@@ -52,4 +52,12 @@ class ContentTest extends TestCase
 
         $this->assertSame('<br>', $content->render());
     }
+
+    /** @test */
+    public function content_may_be_null ()
+    {
+        $content = Content::make(null);
+
+        $this->assertSame('', $content->render());
+    }
 }

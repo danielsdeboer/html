@@ -20,9 +20,9 @@ class Content implements Renderable
      * @param string $content
      * @param bool $escaped
      */
-    public function __construct (string $content, bool $escaped = true)
+    public function __construct (string $content = null, bool $escaped = true)
     {
-        $this->content = $content;
+        $this->setContent($content);
         $this->escaped = $escaped;
     }
 
@@ -32,7 +32,7 @@ class Content implements Renderable
      * @param bool $escaped
      * @return \Aviator\Html\Content
      */
-    public static function make (string $content, bool $escaped = true)
+    public static function make (string $content = null, bool $escaped = true)
     {
         return new self($content, $escaped);
     }
@@ -43,6 +43,17 @@ class Content implements Renderable
     public function getName () : string
     {
         return substr(toSlug($this->content), 0, 45);
+    }
+
+    /**
+     * @param string|null $content
+     * @return $this
+     */
+    public function setContent (string $content = null)
+    {
+        $this->content = is_null($content) ? '' : $content;
+
+        return $this;
     }
 
     /**
