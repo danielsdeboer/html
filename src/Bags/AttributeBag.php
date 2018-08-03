@@ -4,7 +4,6 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\Attribute;
 use Aviator\Html\Interfaces\Renderable;
-use Aviator\Html\Traits\HasToString;
 
 class AttributeBag extends AbstractBag
 {
@@ -41,24 +40,20 @@ class AttributeBag extends AbstractBag
     }
 
     /**
-     * Set multiple attributes.
+     * Set multiple attributes. Attributes with a value of 'false' will be
+     * ignored.
      * @param array $items
      * @return $this
      */
     public function many (array $items)
     {
         foreach ($items as $name => $value) {
-            /*
-             * If the key is numeric create a boolean attribute.
-             */
-            if (is_numeric($name)) {
-                $this->add(
-                    Attribute::make($this->tag, $value)
-                );
+            if (is_bool($value)) {
+                $this->addBooleanAttribute($name, $value);
+            } elseif (is_numeric($name)) {
+                $this->addBooleanAttribute($value, true);
             } else {
-                $this->add(
-                    Attribute::make($this->tag, $name, $value)
-                );
+                $this->addAttribute($name, $value);
             }
         }
 
@@ -66,17 +61,46 @@ class AttributeBag extends AbstractBag
     }
 
     /**
+     * @param string $name
+     * @param bool $value
+     */
+    private function addBooleanAttribute (string $name, bool $value)
+    {
+        $this->add(
+            new Attribute($this->tag, $name, $value)
+        );
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    private function addAttribute (string $name, string $value)
+    {
+        $this->add(
+            new Attribute($this->tag, $name, $value)
+        );
+    }
+
+    /**
+     * An array of rendered attributes. This includes empty strings for
+     * boolean attributes set to 'false'.
+     * @return array
+     */
+    private function renderedParts () : array
+    {
+        return array_filter(
+            array_map([$this, 'renderCb'], $this->items)
+        );
+    }
+
+    /**
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () :string
+    public function render () : string
     {
-        return implode(
-            ' ',
-            array_map(function (Renderable $item) {
-                return $item->render();
-            }, $this->items)
-        );
+        return implode(' ', $this->renderedParts());
     }
 
     /**
@@ -85,9 +109,19 @@ class AttributeBag extends AbstractBag
      * @param \Aviator\Html\Interfaces\Renderable $item
      * @return string
      */
-    public function reduceCallback ($carry, Renderable $item)
+    public function reduceCb ($carry, Renderable $item)
     {
         $carry .= ' ' . $item->render();
+
         return $carry;
+    }
+
+    /**
+     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @return string
+     */
+    public function renderCb (Renderable $item)
+    {
+        return $item->render();
     }
 }

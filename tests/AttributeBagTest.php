@@ -45,10 +45,34 @@ class AttributeBagTest extends TestCase
     }
 
     /** @test */
+    public function setting_a_boolean_attribute_with_value_true ()
+    {
+        $bag = new AttributeBag('input', ['disabled' => true]);
+
+        $this->assertSame('disabled', $bag->render());
+    }
+
+    /** @test */
+    public function setting_a_boolean_attribute_with_value_false ()
+    {
+        $bag = new AttributeBag('input', ['disabled' => false]);
+
+        $this->assertSame('', $bag->render());
+    }
+
+    /** @test */
     public function rendering_the_bag ()
     {
-        $bag = AttributeBag::make('input', ['name' => 'test', 'id' => 'test2']);
+        $bag = new AttributeBag('input', [
+            'name' => 'test',
+            'id' => 'test2',
+            'disabled' => false,
+            'autofocus' => true,
+        ]);
 
-        $this->assertSame('name="test" id="test2"', $bag->render());
+        $this->assertSame(
+            'name="test" id="test2" autofocus',
+            $bag->render()
+        );
     }
 }

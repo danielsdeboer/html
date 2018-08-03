@@ -79,7 +79,7 @@ abstract class AbstractBag implements Renderable, Bag
      */
     public function render () : string
     {
-        return '' . array_reduce($this->items, [$this, 'reduceCallback']);
+        return '' . array_reduce($this->items, [$this, 'reduceCb']);
     }
 
     /**
@@ -93,5 +93,5 @@ abstract class AbstractBag implements Renderable, Bag
      * @param $item
      * @return mixed
      */
-    abstract public function reduceCallback($carry, Renderable $item);
+    abstract public function reduceCb($carry, Renderable $item);
 }

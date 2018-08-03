@@ -13,7 +13,7 @@ class Attribute implements Renderable
     /** @var string */
     protected $name;
 
-    /** @var string|null */
+    /** @var string|bool */
     protected $value;
 
     /**
@@ -25,7 +25,7 @@ class Attribute implements Renderable
     public function __construct (string $tag, string $name, $value = true)
     {
         $this->setName($tag, $name);
-        $this->setValue($value);
+        $this->value = $value;
     }
 
     /**
@@ -60,17 +60,6 @@ class Attribute implements Renderable
     }
 
     /**
-     * @param string|bool $value
-     * @return $this
-     */
-    public function setValue ($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
      * @return string|bool
      */
     public function getValue ()
@@ -84,7 +73,11 @@ class Attribute implements Renderable
      */
     public function render () : string
     {
-        return is_bool($this->value)
+        if ($this->value === false) {
+            return '';
+        }
+
+        return $this->value === true
             ? $this->name
             : $this->name . '="' . $this->value . '"';
     }
