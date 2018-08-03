@@ -46,7 +46,7 @@ class ClassBag extends AbstractBag
     public function render () : string
     {
         return $this->hasItems()
-            ? 'class="' . trim(array_reduce($this->items, [$this, 'reduceCallback'])) . '"'
+            ? 'class="' . trim(array_reduce($this->items, [$this, 'reduceCb'])) . '"'
             : '';
     }
 
@@ -55,7 +55,7 @@ class ClassBag extends AbstractBag
      * @param \Aviator\Html\Interfaces\Renderable $renderable
      * @return string
      */
-    public function reduceCallback ($carry, Renderable $renderable)
+    public function reduceCb ($carry, Renderable $renderable)
     {
         $carry .= $renderable->getName() . ' ';
         return $carry;
