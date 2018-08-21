@@ -31,6 +31,9 @@ class Tag implements Renderable
     /** @var \Aviator\Html\Bags\ContentBag */
     protected $content;
 
+    /** @var bool */
+    protected $hasClosingTag;
+
     /** @var array */
     protected $voids = [
         'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 
@@ -42,6 +45,7 @@ class Tag implements Renderable
      * @param string $name
      * @param array|string $classes
      * @param array $attributes
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     public function __construct (string $name, $classes = [], $attributes = [])
     {
@@ -50,6 +54,7 @@ class Tag implements Renderable
         $this->attributes = AttributeBag::make($name, $attributes);
         $this->classes = ClassBag::make($classes);
         $this->content = ContentBag::make([]);
+        $this->hasClosingTag = true;
     }
 
     /**
@@ -58,6 +63,7 @@ class Tag implements Renderable
      * @param array $classes
      * @param array $props
      * @return \Aviator\Html\Tag
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     public static function make (string $name, $classes = [], $props = [])
     {
@@ -67,6 +73,7 @@ class Tag implements Renderable
     /**
      * @param string $name
      * @return $this
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     public function setName (string $name)
     {
@@ -146,7 +153,7 @@ class Tag implements Renderable
     public function with ($contents)
     {
         if ($this->isVoid()) {
-            throw new VoidTagsMayNotHaveContent('"' . $this->name . '"is a void tag and may not have content.');
+            throw new VoidTagsMayNotHaveContent($this->name);
         }
 
         if (is_array($contents)) {
@@ -159,10 +166,29 @@ class Tag implements Renderable
     }
 
     /**
+     * @return \Aviator\Html\Tag
+     */
+    public function dontClose () : Tag
+    {
+        return $this->hasClosingTag(false);
+    }
+
+    /**
+     * @param bool $bool
+     * @return \Aviator\Html\Tag
+     */
+    public function hasClosingTag (bool $bool) : Tag
+    {
+        $this->hasClosingTag = $bool;
+
+        return $this;
+    }
+
+    /**
      * Is the element void (has no closing tag, has no content).
      * @return bool
      */
-    public function isVoid ()
+    public function isVoid () : bool
     {
         return in_array($this->name, $this->voids);
     }
@@ -175,6 +201,13 @@ class Tag implements Renderable
     {
         if ($this->isVoid()) {
             return $this->open();
+        }
+
+        if (!$this->hasClosingTag) {
+            return implode('', [
+                $this->open(),
+                $this->content(),
+            ]);
         }
 
         return implode('', [
@@ -273,6 +306,7 @@ class Tag implements Renderable
      * @param string $name
      * @param array $arguments
      * @return \Aviator\Html\Tag
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     public static function __callStatic ($name, $arguments)
     {
