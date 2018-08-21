@@ -219,4 +219,16 @@ echo tag('input')->attribute('foo');
 // Result: null
 ```  
 
+### Options
 
+If you want to render an open tag, call the `dontClose()` method:
+
+```php
+echo tag('div')->dontClose()->render()
+```
+
+Result:
+
+```html
+<div>
+```

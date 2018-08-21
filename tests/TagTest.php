@@ -294,4 +294,14 @@ class TagTest extends TestCase
         $this->assertSame('<div>2.222</div>', $div2->render());
         $this->assertSame('<div>' . $dt->toDateTimeString() . '</div>', $div3->render());
     }
+
+    /**
+     * @test
+     */
+    public function getting_an_unclosed_tag ()
+    {
+        $tag = tag('div')->with(1)->dontClose()->render();
+
+        $this->assertNotContains($tag, '</div>');
+    }
 }
