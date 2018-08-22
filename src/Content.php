@@ -38,6 +38,16 @@ class Content implements Renderable
     }
 
     /**
+     * Static constructor for unescaped content.
+     * @param string $content
+     * @return \Aviator\Html\Content
+     */
+    public static function unescaped (string $content) : Content
+    {
+        return new self($content, false);
+    }
+
+    /**
      * @return string
      */
     public function getName () : string

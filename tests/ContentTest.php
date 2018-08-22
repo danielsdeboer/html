@@ -30,6 +30,14 @@ class ContentTest extends TestCase
     }
 
     /** @test */
+    public function getting_an_unescaped_instance ()
+    {
+        $string = Content::unescaped('test>')->render();
+
+        $this->assertContains('test>', $string);
+    }
+
+    /** @test */
     public function rendering_content ()
     {
         $content = Content::make('test');
