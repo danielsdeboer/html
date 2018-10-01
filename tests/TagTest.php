@@ -32,7 +32,7 @@ class TagTest extends TestCase
     {
         $this->expectException(ValidationException::class);
 
-        $tag = Tag::make('garbage');
+        Tag::make('garbage');
     }
 
     /** @test */
@@ -80,6 +80,14 @@ class TagTest extends TestCase
         $tag = Tag::make('div', ['test-class', 'another-class']);
 
         $this->assertSame('<div class="test-class another-class"></div>', $tag->render());
+    }
+
+    /** @test */
+    public function rendering_a_tag_with_an_empty_string_class ()
+    {
+        $tag = Tag::make('div', '');
+
+        $this->assertNotContains('class=""', $tag->render());
     }
 
     /** @test */
@@ -174,7 +182,7 @@ class TagTest extends TestCase
     {
         $this->expectException(VoidTagsMayNotHaveContent::class);
 
-        $tag = Tag::make('input')->with('content');
+        Tag::make('input')->with('content');
     }
 
     /** @test */
@@ -258,7 +266,9 @@ class TagTest extends TestCase
     /** @test */
     public function calling_a_tag_as_a_static_method_returns_that_tag ()
     {
+        /** @var \Aviator\Html\Tag $table */
         $table = Tag::table('table', ['id' => 'the-table']);
+        /** @var \Aviator\Html\Tag $div */
         $div = Tag::div()->with('test text');
 
         $this->assertSame('<table class="table" id="the-table"></table>', $table->render());
