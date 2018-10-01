@@ -4,7 +4,6 @@ namespace Aviator\Html\Bags;
 
 use Aviator\Html\ClassAttribute;
 use Aviator\Html\Interfaces\Renderable;
-use Aviator\Html\Traits\HasToString;
 
 class ClassBag extends AbstractBag
 {
@@ -18,7 +17,7 @@ class ClassBag extends AbstractBag
     public function __construct ($items)
     {
         if (!is_array($items)) {
-            $items = [$items];
+            $items = array_filter([$items]);
         }
 
         parent::__construct($items);
