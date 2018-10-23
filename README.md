@@ -132,6 +132,48 @@ The `Tag` class knows which tags are void and need no closing tag. There's no ne
 
 Void tags cannot have content. Trying to add content to them will throw an exception.
 
+### Fragments
+
+Direct siblings can be rendered using a `Fragment`. A fragment is simply an un-nested collection of tags (or other renderables, even other fragments):
+
+```php
+$fragment = new Fragment([
+    new Tag('p'),
+    new Tag('div'),
+]);
+
+// Or Fragment::make([...]);
+```
+
+`$fragment->render()`:
+
+```html
+<p></p><div></div>
+```
+
+### Conditional Tags
+
+You can create a conditional tag that will only render sometimes:
+
+```php
+$tag = new Tag('div');
+
+// Evaluates equality, eg truthy and falsey values
+$tag->setShouldRender(false); 
+```
+
+or 
+
+```php
+$tag = Tag::when(false, 'div');
+```
+
+`$tag->render()`:
+
+```html
+''
+```
+
 ## CSS Classes
 
 To specify CSS classes for your tags, pass in a second parameter:

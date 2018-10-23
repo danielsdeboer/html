@@ -40,6 +40,9 @@ class Tag implements Renderable
         'track', 'wbr',
     ];
 
+    /** @var bool */
+    protected $shouldRender;
+
     /**
      * HtmlNode constructor.
      * @param string $name
@@ -65,9 +68,38 @@ class Tag implements Renderable
      * @return \Aviator\Html\Tag
      * @throws \Aviator\Html\Exceptions\ValidationException
      */
-    public static function make (string $name, $classes = [], $props = [])
+    public static function make (string $name, $classes = [], $props = []): Tag
     {
         return new self($name, $classes, $props);
+    }
+
+    /**
+     * @param $condition
+     * @param string $name
+     * @param array $classes
+     * @param array $props
+     * @return \Aviator\Html\Tag
+     * @throws \Aviator\Html\Exceptions\ValidationException
+     */
+    public static function when ($condition, string $name, $classes = [], $props = []): Tag
+    {
+        return Tag::make($name, $classes, $props)
+            ->setShouldRender($condition);
+    }
+
+    /**
+     * @param $condition
+     * @return \Aviator\Html\Tag
+     */
+    public function setShouldRender ($condition): self
+    {
+        if ($condition) {
+            $this->shouldRender = true;
+        } else {
+            $this->shouldRender = false;
+        }
+
+        return $this;
     }
 
     /**
@@ -199,6 +231,10 @@ class Tag implements Renderable
      */
     public function render () : string
     {
+        if (isset($this->shouldRender) && !$this->shouldRender) {
+            return '';
+        }
+
         if ($this->isVoid()) {
             return $this->open();
         }

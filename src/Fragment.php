@@ -6,31 +6,29 @@ use Aviator\Html\Interfaces\Renderable;
 
 class Fragment implements Renderable
 {
-    /** @var \Aviator\Html\Tag[] */
-    private $tags;
+    /** @var \Aviator\Html\Interfaces\Renderable[] */
+    private $renderables;
 
     /**
      * Constructor.
-     * @param \Aviator\Html\Tag[] $tags
+     * @param \Aviator\Html\Tag[] $renderables
      */
-    public function __construct (array $tags)
+    public function __construct (array $renderables)
     {
-        $this->tags = [];
+        $this->renderables = [];
 
-        foreach ($tags as $tag) {
-            if ($tag instanceof Tag) {
-                $this->tags[] = $tag;
-            }
+        foreach ($renderables as $renderable) {
+            $this->addRenderable($renderable);
         }
     }
 
     /**
-     * @param array $tags
+     * @param array $renderables
      * @return \Aviator\Html\Fragment
      */
-    public static function make (array $tags) : Fragment
+    public static function make (array $renderables) : Fragment
     {
-        return new self($tags);
+        return new self($renderables);
     }
 
     /**
@@ -39,13 +37,13 @@ class Fragment implements Renderable
      */
     public function render () : string
     {
-        $fragment = '';
-
-        foreach ($this->tags as $tag) {
-            $fragment .= $tag->render();
-        }
-
-        return $fragment;
+        return array_reduce(
+            $this->renderables,
+            function ($carry, Renderable $renderable) {
+                return $carry . $renderable->render();
+            },
+            ''
+        );
     }
 
     /**
@@ -55,5 +53,13 @@ class Fragment implements Renderable
     public function __toString () : string
     {
         return $this->render();
+    }
+
+    /**
+     * @param \Aviator\Html\Interfaces\Renderable $renderable
+     */
+    private function addRenderable (Renderable $renderable): void
+    {
+        $this->renderables[] = $renderable;
     }
 }
