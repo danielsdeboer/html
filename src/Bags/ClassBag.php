@@ -12,7 +12,7 @@ class ClassBag extends AbstractBag
 
     /**
      * ClassBag constructor.
-     * @param array $items
+     * @param mixed $items
      */
     public function __construct ($items)
     {
@@ -50,13 +50,18 @@ class ClassBag extends AbstractBag
     }
 
     /**
-     * @param $carry
+     * @param string $carry
      * @param \Aviator\Html\Interfaces\Renderable $renderable
      * @return string
      */
     public function reduceCb ($carry, Renderable $renderable)
     {
+        /**
+         * @noinspection PhpUndefinedMethodInspection
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
         $carry .= $renderable->getName() . ' ';
+
         return $carry;
     }
 }

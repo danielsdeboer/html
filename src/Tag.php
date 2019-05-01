@@ -58,6 +58,7 @@ class Tag implements Renderable
         $this->classes = ClassBag::make($classes);
         $this->content = ContentBag::make([]);
         $this->hasClosingTag = true;
+        $this->shouldRender = true;
     }
 
     /**
@@ -74,7 +75,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param $condition
+     * @param mixed $condition
      * @param string $name
      * @param array $classes
      * @param array $props
@@ -88,7 +89,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param $condition
+     * @param mixed $condition
      * @return \Aviator\Html\Tag
      */
     public function setShouldRender ($condition): self
@@ -109,9 +110,9 @@ class Tag implements Renderable
      */
     public function setName (string $name)
     {
-        if (TagValidator::of($name)->validate()) {
-            $this->name = $name;
-        }
+        TagValidator::of($name)->validate();
+
+        $this->name = $name;
 
         return $this;
     }
@@ -126,7 +127,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param $content
+     * @param string|\Aviator\Html\Interfaces\Renderable $content
      * @return $this
      */
     public function addContent ($content)
@@ -139,7 +140,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param $class
+     * @param string|array $class
      * @return $this
      */
     public function addClass ($class)
@@ -182,17 +183,15 @@ class Tag implements Renderable
 
     /**
      * Get an attribute value by name.
-     * @param $name
-     * @return string|bool|null
+     * @param mixed $name
+     * @return mixed|null
      */
     public function attribute ($name)
     {
-        /** @var \Aviator\Html\Attribute $attribute */
+        /** @var \Aviator\Html\Attribute|null $attribute */
         $attribute = $this->attributes->get($name);
 
-        return $attribute
-            ? $attribute->getValue()
-            : null;
+        return $attribute ? $attribute->getValue() : null;
     }
 
     /**
@@ -249,7 +248,7 @@ class Tag implements Renderable
      */
     public function render () : string
     {
-        if (isset($this->shouldRender) && !$this->shouldRender) {
+        if (!$this->shouldRender) {
             return '';
         }
 
@@ -321,7 +320,7 @@ class Tag implements Renderable
 
     /**
      * If the parameter isn't an array, make it one.
-     * @param $value
+     * @param mixed $value
      * @return array
      */
     protected function asArray ($value) : array
@@ -335,13 +334,21 @@ class Tag implements Renderable
      */
     protected function attributeDelegator ()
     {
-        return new Delegate($this->attributes, function(AttributeBag $items, $name) {
-            return $items->value($name);
-        });
+        return new Delegate(
+            $this->attributes,
+            /**
+             * @param \Aviator\Html\Bags\AttributeBag $items
+             * @param string $name
+             * @return string|bool|null
+             */
+            function(AttributeBag $items, $name) {
+                return $items->value($name);
+            }
+        );
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function __get ($name)

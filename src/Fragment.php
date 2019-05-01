@@ -39,6 +39,11 @@ class Fragment implements Renderable
     {
         return array_reduce(
             $this->renderables,
+            /**
+             * @param string $carry
+             * @param \Aviator\Html\Interfaces\Renderable $renderable
+             * @return string
+             */
             function ($carry, Renderable $renderable) {
                 return $carry . $renderable->render();
             },

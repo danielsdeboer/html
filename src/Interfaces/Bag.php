@@ -6,7 +6,7 @@ interface Bag
 {
     /**
      * Get a baggable item by name.
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function get ($name);

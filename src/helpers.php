@@ -21,6 +21,7 @@ if (!function_exists('tag')) {
      * @param array $classes
      * @param array $attributes
      * @return \Aviator\Html\Tag
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     function tag ($name, $classes = [], $attributes = [])
     {
