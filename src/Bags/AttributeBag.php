@@ -7,6 +7,7 @@ use Aviator\Html\Interfaces\Renderable;
 
 class AttributeBag extends AbstractBag
 {
+    /** @var string */
     protected $name = 'attribute-bag';
 
     /** @var string */
@@ -26,12 +27,12 @@ class AttributeBag extends AbstractBag
 
     /**
      * Get an attribute value by name.
-     * @param $name
-     * @return string|null
+     * @param string $name
+     * @return string|bool|null
      */
     public function value ($name)
     {
-        /** @var \Aviator\Html\Attribute $attribute */
+        /** @var \Aviator\Html\Attribute|null $attribute */
         $attribute = $this->get($name);
 
         return $attribute
@@ -63,6 +64,7 @@ class AttributeBag extends AbstractBag
     /**
      * @param string $name
      * @param bool $value
+     * @return void
      */
     private function addBooleanAttribute (string $name, bool $value)
     {
@@ -74,6 +76,7 @@ class AttributeBag extends AbstractBag
     /**
      * @param string $name
      * @param string $value
+     * @return void
      */
     private function addAttribute (string $name, string $value)
     {
@@ -105,7 +108,7 @@ class AttributeBag extends AbstractBag
 
     /**
      * Attribute reducer callback.
-     * @param $carry
+     * @param string $carry
      * @param \Aviator\Html\Interfaces\Renderable $item
      * @return string
      */

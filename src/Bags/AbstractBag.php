@@ -36,7 +36,7 @@ abstract class AbstractBag implements Renderable, Bag
 
     /**
      * Get an attribute instance by name.
-     * @param $name
+     * @param string $name
      * @return Renderable|null
      */
     public function get ($name)
@@ -49,13 +49,12 @@ abstract class AbstractBag implements Renderable, Bag
     /**
      * Add a single renderable item.
      * @param \Aviator\Html\Interfaces\Renderable $item
-     * @return $this
+     * @return \Aviator\Html\Bags\AbstractBag
+     * @psalm-suppress ImplementedReturnTypeMismatch
      */
     public function add (Renderable $item)
     {
-        /*
-         * Some renderables are unique and callable by key (eg Attribute)
-         */
+        // Some renderables are unique and callable by key (eg Attribute)
         if (method_exists($item, 'getKey')) {
             $this->items[$item->getKey()] = $item;
         } else {
@@ -89,9 +88,9 @@ abstract class AbstractBag implements Renderable, Bag
     abstract public function many (array $items);
 
     /**
-     * @param $carry
-     * @param $item
-     * @return mixed
+     * @param string $carry
+     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @return string
      */
     abstract public function reduceCb($carry, Renderable $item);
 }

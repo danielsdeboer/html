@@ -16,7 +16,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "7.1.x",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "dbt/phpunit-runner": "^0.1.2",
+        "vimeo/psalm": "^3.2",
+        "larapack/dd": "^1.1"
     },
     "autoload-dev": {
         "psr-4": {
@@ -24,6 +27,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "php ./vendor/dbt/phpunit-runner/phpunit.php --no-coverage",
+        "coverage": "phpunit --coverage-html coverage",
+        "stat": "psalm"
     }
 }

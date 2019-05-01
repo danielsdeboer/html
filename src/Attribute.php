@@ -41,14 +41,15 @@ class Attribute implements Renderable
     }
 
     /**
-     * @param $tag
-     * @param $name
+     * @param string $tag
+     * @param string $name
+     * @return void
      */
     public function setName ($tag, $name)
     {
-        if (AttributeValidator::make($tag, $name)->validate()) {
-            $this->name = $name;
-        }
+        AttributeValidator::make($tag, $name)->validate();
+
+        $this->name = $name;
     }
 
     /**

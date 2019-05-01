@@ -32,13 +32,14 @@ class ContentBag extends AbstractBag
     }
 
     /**
-     * @param $carry
+     * @param string $carry
      * @param \Aviator\Html\Interfaces\Renderable $renderable
      * @return string
      */
     public function reduceCb ($carry, Renderable $renderable)
     {
         $carry .= $renderable->render();
+
         return $carry;
     }
 }

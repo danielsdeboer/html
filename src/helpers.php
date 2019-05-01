@@ -2,18 +2,6 @@
 
 use Aviator\Html\Tag;
 
-if (!function_exists('dd')) {
-    /**
-     * Die and dump.
-     * @param array ...$args
-     */
-    function dd(...$args) {
-        die(
-            var_dump(...$args)
-        );
-    }
-}
-
 if (!function_exists('toSlug')) {
     /**
      * Generate a url-friendly slug from a string.
@@ -33,6 +21,7 @@ if (!function_exists('tag')) {
      * @param array $classes
      * @param array $attributes
      * @return \Aviator\Html\Tag
+     * @throws \Aviator\Html\Exceptions\ValidationException
      */
     function tag ($name, $classes = [], $attributes = [])
     {
