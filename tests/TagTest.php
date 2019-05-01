@@ -196,6 +196,19 @@ class TagTest extends TestCase
     }
 
     /** @test */
+    public function adding_classes ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addClasses(['some-class', 'some-other-class']);
+
+        $this->assertSame(
+            '<div class="some-class some-other-class"></div>',
+            $tag->render()
+        );
+    }
+
+    /** @test */
     public function adding_multiple_classes ()
     {
         $tag = Tag::make('div');
@@ -221,6 +234,22 @@ class TagTest extends TestCase
     }
 
     /** @test */
+    public function adding_attributes ()
+    {
+        $tag = Tag::make('div');
+
+        $tag->addAttributes([
+            'id' => 'some-id',
+            'title' => 'some title'
+        ]);
+
+        $this->assertSame(
+            '<div id="some-id" title="some title"></div>',
+            $tag->render()
+        );
+    }
+
+    /** @test */
     public function adding_multiple_attributes ()
     {
         $tag = Tag::make('div');
@@ -228,7 +257,10 @@ class TagTest extends TestCase
         $tag->addAttribute(['id' => 'some-id']);
         $tag->addAttribute(['title' => 'A Title']);
 
-        $this->assertSame('<div id="some-id" title="A Title"></div>', $tag->render());
+        $this->assertSame(
+            '<div id="some-id" title="A Title"></div>',
+            $tag->render()
+        );
     }
 
     /** @test */

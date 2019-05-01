@@ -36,7 +36,7 @@ class Tag implements Renderable
 
     /** @var array */
     protected $voids = [
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source',
         'track', 'wbr',
     ];
 
@@ -109,7 +109,7 @@ class Tag implements Renderable
      */
     public function setName (string $name)
     {
-        if (TagValidator::make($name)->validate()) {
+        if (TagValidator::of($name)->validate()) {
             $this->name = $name;
         }
 
@@ -152,6 +152,15 @@ class Tag implements Renderable
     }
 
     /**
+     * @param array $classes
+     * @return $this
+     */
+    public function addClasses (array $classes)
+    {
+        return $this->addClass($classes);
+    }
+
+    /**
      * @param $attributes
      * @return $this
      */
@@ -160,6 +169,15 @@ class Tag implements Renderable
         $this->attributes->many($attributes);
 
         return $this;
+    }
+
+    /**
+     * @param array $attributes
+     * @return $this
+     */
+    public function addAttributes (array $attributes)
+    {
+        return $this->addAttribute($attributes);
     }
 
     /**

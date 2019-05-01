@@ -33,11 +33,19 @@ class TagValidator implements Validator
     }
 
     /**
-     * Static constructor
      * @param string $name
      * @return \Aviator\Html\Validators\TagValidator
      */
     public static function make (string $name)
+    {
+        return new self($name);
+    }
+
+    /**
+     * @param string $name
+     * @return \Aviator\Html\Validators\TagValidator
+     */
+    public static function of (string $name)
     {
         return new self($name);
     }

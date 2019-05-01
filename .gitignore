@@ -1,4 +1,6 @@
+build
 composer.lock
+docs
 vendor
-test_logs
-.idea
+coverage
+.idea/
