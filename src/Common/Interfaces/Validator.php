@@ -8,5 +8,5 @@ interface Validator
      * Perform the validation.
      * @return bool
      */
-    public function validate () : bool;
+    public function validate (): bool;
 }

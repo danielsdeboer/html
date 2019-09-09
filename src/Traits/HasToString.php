@@ -13,7 +13,7 @@ trait HasToString
      * Return a html string representation of the object.
      * @return string
      */
-    public function __toString () : string
+    public function __toString (): string
     {
         return $this->render();
     }

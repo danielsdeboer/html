@@ -46,7 +46,7 @@ class TagValidator implements Validator
      * @return bool
      * @throws \Aviator\Html\Exceptions\ValidationException
      */
-    public function validate () : bool
+    public function validate (): bool
     {
         if (in_array($this->name, $this->tags)) {
             return true;

@@ -6,16 +6,16 @@ use Aviator\Delegate\Delegate;
 use Aviator\Html\Bags\AttributeBag;
 use Aviator\Html\Bags\ClassBag;
 use Aviator\Html\Bags\ContentBag;
+use Aviator\Html\Common\Interfaces\Node;
 use Aviator\Html\Common\Interfaces\Param;
 use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
-use Aviator\Html\Common\Interfaces\Renderable;
 use Aviator\Html\Params\Classes;
 use Aviator\Html\Params\Name;
 use Aviator\Html\Params\Attrs;
 use Aviator\Html\Traits\HasToString;
 use Aviator\Html\Validators\TagValidator;
 
-class Tag implements Renderable
+class Tag implements Node
 {
     use HasToString;
 
@@ -55,7 +55,7 @@ class Tag implements Renderable
     /**
      * HtmlNode constructor.
      * @param string $name
-     * @param array|string $classes
+     * @param string|string[] $classes
      * @param array $attributes
      * @throws \Aviator\Html\Exceptions\ValidationException
      */
@@ -126,7 +126,6 @@ class Tag implements Renderable
     }
 
     /**
-     * @param string $name
      * @return $this
      * @throws \Aviator\Html\Exceptions\ValidationException
      */
@@ -139,11 +138,7 @@ class Tag implements Renderable
         return $this;
     }
 
-    /**
-     * Get the tag name, eg 'div'
-     * @return string
-     */
-    public function getName () : string
+    public function getName (): string
     {
         return $this->name;
     }
@@ -154,28 +149,29 @@ class Tag implements Renderable
      */
     public function addContent ($content)
     {
-        $content = $this->asArray($content);
-
-        $this->content->many($content);
+        $this->content->many(
+            $this->arrayWrap($content)
+        );
 
         return $this;
     }
 
     /**
-     * @param string|array $class
+     * @param string|string[] $class
      * @return $this
      */
     public function addClass ($class)
     {
-        $class = $this->asArray($class);
-
-        $this->classes->many($class);
+        $this->classes->many(
+            $this->arrayWrap($class)
+        );
 
         return $this;
     }
 
     /**
-     * @param array $classes
+     * Type-narrowed alias for addClass().
+     * @param string[] $classes
      * @return $this
      */
     public function addClasses (array $classes)
@@ -195,6 +191,7 @@ class Tag implements Renderable
     }
 
     /**
+     * Alias for addAttribute()
      * @param array $attributes
      * @return $this
      */
@@ -213,7 +210,7 @@ class Tag implements Renderable
         /** @var \Aviator\Html\Attribute|null $attribute */
         $attribute = $this->attributes->get($name);
 
-        return $attribute ? $attribute->getValue() : null;
+        return $attribute ? $attribute->getValue(): null;
     }
 
     /**
@@ -239,7 +236,7 @@ class Tag implements Renderable
     /**
      * @return \Aviator\Html\Tag
      */
-    public function dontClose () : Tag
+    public function dontClose (): Tag
     {
         return $this->hasClosingTag(false);
     }
@@ -248,7 +245,7 @@ class Tag implements Renderable
      * @param bool $bool
      * @return \Aviator\Html\Tag
      */
-    public function hasClosingTag (bool $bool) : Tag
+    public function hasClosingTag (bool $bool): Tag
     {
         $this->hasClosingTag = $bool;
 
@@ -259,7 +256,7 @@ class Tag implements Renderable
      * Is the element void (has no closing tag, has no content).
      * @return bool
      */
-    public function isVoid () : bool
+    public function isVoid (): bool
     {
         return in_array($this->name, $this->voids);
     }
@@ -268,7 +265,7 @@ class Tag implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         if (!$this->shouldRender) {
             return '';
@@ -296,7 +293,7 @@ class Tag implements Renderable
      * Render the opening tag.
      * @return string
      */
-    protected function open () : string
+    protected function open (): string
     {
         return implode('', [
             self::HTML_OPEN,
@@ -309,7 +306,7 @@ class Tag implements Renderable
      * Get the internal parts of an opening tag.
      * @return string
      */
-    protected function openInternal () : string
+    protected function openInternal (): string
     {
         return implode(' ', array_filter([
             $this->name,
@@ -321,7 +318,7 @@ class Tag implements Renderable
     /**
      * @return string
      */
-    public function content () : string
+    public function content (): string
     {
         return $this->content->render();
     }
@@ -330,7 +327,7 @@ class Tag implements Renderable
      * Render the closing tag.
      * @return string
      */
-    protected function close () : string
+    protected function close (): string
     {
         return implode('', [
             self::HTML_OPEN,
@@ -345,7 +342,7 @@ class Tag implements Renderable
      * @param mixed $value
      * @return array
      */
-    protected function asArray ($value) : array
+    protected function arrayWrap ($value): array
     {
         return is_array($value) ? $value : [$value];
     }

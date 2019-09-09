@@ -42,7 +42,7 @@ class ClassBag extends AbstractBag
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return $this->hasItems()
             ? 'class="' . trim(array_reduce($this->items, [$this, 'reduceCb'])) . '"'

@@ -21,7 +21,7 @@ class VoidTagsMayNotHaveContent extends Exception
      * @param string $name
      * @return string
      */
-    private static function makeMessage (string $name) : string
+    private static function makeMessage (string $name): string
     {
         return sprintf(
             '"%s"is a void tag and may not have content.',

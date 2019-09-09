@@ -67,7 +67,7 @@ abstract class AbstractBag implements Renderable, Bag
     /**
      * @return bool
      */
-    public function hasItems () : bool
+    public function hasItems (): bool
     {
         return count($this->items) > 0;
     }
@@ -76,7 +76,7 @@ abstract class AbstractBag implements Renderable, Bag
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return '' . array_reduce($this->items, [$this, 'reduceCb']);
     }

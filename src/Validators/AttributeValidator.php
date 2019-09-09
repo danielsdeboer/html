@@ -389,7 +389,7 @@ class AttributeValidator implements Validator
      * Perform the validation.
      * @return bool
      */
-    public function validate () : bool
+    public function validate (): bool
     {
         return $this->isValidAttribute() && $this->isValidAttributeForTag();
     }
@@ -399,7 +399,7 @@ class AttributeValidator implements Validator
      * @return bool
      * @throws \Aviator\Html\Exceptions\AttributeDoesNotExist
      */
-    protected function isValidAttribute () : bool
+    protected function isValidAttribute (): bool
     {
         if (!array_key_exists($this->attribute, $this->validAttributes)) {
             throw new AttributeDoesNotExist(
@@ -414,7 +414,7 @@ class AttributeValidator implements Validator
      * @return bool
      * @throws \Aviator\Html\Exceptions\AttributeDoesNotMatchTag
      */
-    protected function isValidAttributeForTag () : bool
+    protected function isValidAttributeForTag (): bool
     {
         /*
          * Certain attributes may be applied to any tag.

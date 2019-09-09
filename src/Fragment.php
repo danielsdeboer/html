@@ -26,7 +26,7 @@ class Fragment implements Renderable
      * @param array $renderables
      * @return \Aviator\Html\Fragment
      */
-    public static function make (array $renderables) : Fragment
+    public static function make (array $renderables): Fragment
     {
         return new self($renderables);
     }
@@ -35,7 +35,7 @@ class Fragment implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return array_reduce(
             $this->renderables,
@@ -55,7 +55,7 @@ class Fragment implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function __toString () : string
+    public function __toString (): string
     {
         return $this->render();
     }
