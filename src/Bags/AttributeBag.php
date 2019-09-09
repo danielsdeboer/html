@@ -115,6 +115,7 @@ class AttributeBag extends AbstractBag
      */
     public function reduceCb ($carry, Renderable $item)
     {
+        return '';
     }
 
     /**

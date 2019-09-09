@@ -14,6 +14,9 @@ class Name implements Param
         $this->value = $value;
     }
 
+    /**
+     * @return string
+     */
     public function value ()
     {
         return $this->value;

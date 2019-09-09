@@ -14,6 +14,9 @@ class Classes implements Param
         $this->classes = $classes;
     }
 
+    /**
+     * @return array
+     */
     public function value ()
     {
         return $this->classes;

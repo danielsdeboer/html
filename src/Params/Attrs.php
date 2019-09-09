@@ -14,6 +14,9 @@ class Attrs implements Param
         $this->attributes = $attributes;
     }
 
+    /**
+     * @return array
+     */
     public function value ()
     {
         return $this->attributes;
