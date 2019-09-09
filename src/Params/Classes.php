@@ -14,6 +14,11 @@ class Classes implements Param
         $this->classes = $classes;
     }
 
+    public function merge (Classes $toMerge): void
+    {
+        $this->classes = array_merge($this->classes, $toMerge->value());
+    }
+
     /**
      * @return array
      */
