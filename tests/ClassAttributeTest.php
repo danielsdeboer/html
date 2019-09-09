@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ddeboer
- * Date: 10/11/2017
- * Time: 9:56 AM
- */
 
 namespace Aviator\Html\Tests;
 

@@ -3,7 +3,7 @@
 namespace Aviator\Html\Validators;
 
 use Aviator\Html\Exceptions\ValidationException;
-use Aviator\Html\Interfaces\Validator;
+use Aviator\Html\Common\Interfaces\Validator;
 
 class TagValidator implements Validator
 {
@@ -30,15 +30,6 @@ class TagValidator implements Validator
     public function __construct (string $name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * @param string $name
-     * @return \Aviator\Html\Validators\TagValidator
-     */
-    public static function make (string $name)
-    {
-        return new self($name);
     }
 
     /**

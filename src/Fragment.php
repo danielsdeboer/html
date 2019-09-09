@@ -2,11 +2,11 @@
 
 namespace Aviator\Html;
 
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Renderable;
 
 class Fragment implements Renderable
 {
-    /** @var \Aviator\Html\Interfaces\Renderable[] */
+    /** @var \Aviator\Html\Common\Interfaces\Renderable[] */
     private $renderables;
 
     /**
@@ -41,7 +41,7 @@ class Fragment implements Renderable
             $this->renderables,
             /**
              * @param string $carry
-             * @param \Aviator\Html\Interfaces\Renderable $renderable
+             * @param \Aviator\Html\Common\Interfaces\Renderable $renderable
              * @return string
              */
             function ($carry, Renderable $renderable) {
@@ -61,7 +61,7 @@ class Fragment implements Renderable
     }
 
     /**
-     * @param \Aviator\Html\Interfaces\Renderable $renderable
+     * @param \Aviator\Html\Common\Interfaces\Renderable $renderable
      */
     private function addRenderable (Renderable $renderable): void
     {

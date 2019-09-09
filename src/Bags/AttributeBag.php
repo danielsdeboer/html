@@ -3,7 +3,7 @@
 namespace Aviator\Html\Bags;
 
 use Aviator\Html\Attribute;
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Renderable;
 
 class AttributeBag extends AbstractBag
 {
@@ -107,20 +107,18 @@ class AttributeBag extends AbstractBag
     }
 
     /**
-     * Attribute reducer callback.
+     * Attribute reducer callback. This isn't used in this bag.
      * @param string $carry
-     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @param \Aviator\Html\Common\Interfaces\Renderable $item
      * @return string
+     * @codeCoverageIgnore
      */
     public function reduceCb ($carry, Renderable $item)
     {
-        $carry .= ' ' . $item->render();
-
-        return $carry;
     }
 
     /**
-     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @param \Aviator\Html\Common\Interfaces\Renderable $item
      * @return string
      */
     public function renderCb (Renderable $item)

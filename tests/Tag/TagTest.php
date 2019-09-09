@@ -1,12 +1,16 @@
 <?php
 
-namespace Aviator\Html\Tests;
+namespace Aviator\Html\Tests\Tag;
 
 use Aviator\Html\Content;
 use Aviator\Html\Exceptions\ValidationException;
 use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
+use Aviator\Html\Params\Attrs;
+use Aviator\Html\Params\Name;
 use Aviator\Html\Tag;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 
 class TagTest extends TestCase
@@ -337,13 +341,40 @@ class TagTest extends TestCase
         $this->assertSame('<div>' . $dt->toDateTimeString() . '</div>', $div3->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function getting_an_unclosed_tag ()
     {
         $tag = tag('div')->with(1)->dontClose()->render();
 
         $this->assertNotContains($tag, '</div>');
+    }
+
+    /** @test */
+    public function getting_the_name ()
+    {
+        $name = 'div';
+        $tag = Tag::of(new Name($name));
+
+        $this->assertSame($name, $tag->getName());
+    }
+
+    /** @test */
+    public function getting_attribute_values ()
+    {
+        $title = Str::random(16);
+        $tag = Tag::of(new Name('p'), new Attrs(compact('title')));
+
+        $this->assertSame($title, $tag->attrs->title);
+        $this->assertSame($title, $tag->attributes->title);
+    }
+
+    /** @test */
+    public function triggering_an_error ()
+    {
+        $this->expectException(Error::class);
+
+        $tag = new Tag('p');
+
+        $tag->someProperty;
     }
 }

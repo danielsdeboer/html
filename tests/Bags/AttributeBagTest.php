@@ -1,6 +1,6 @@
 <?php
 
-namespace Aviator\Html\Tests;
+namespace Aviator\Html\Tests\Bags;
 
 use Aviator\Html\Attribute;
 use Aviator\Html\Bags\AttributeBag;

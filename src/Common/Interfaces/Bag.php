@@ -1,6 +1,8 @@
 <?php
 
-namespace Aviator\Html\Interfaces;
+namespace Aviator\Html\Common\Interfaces;
+
+use Aviator\Html\Common\Interfaces\Renderable;
 
 interface Bag
 {

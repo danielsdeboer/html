@@ -3,7 +3,7 @@
 namespace Aviator\Html\Bags;
 
 use Aviator\Html\ClassAttribute;
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Renderable;
 
 class ClassBag extends AbstractBag
 {
@@ -51,7 +51,7 @@ class ClassBag extends AbstractBag
 
     /**
      * @param string $carry
-     * @param \Aviator\Html\Interfaces\Renderable $renderable
+     * @param \Aviator\Html\Common\Interfaces\Renderable $renderable
      * @return string
      */
     public function reduceCb ($carry, Renderable $renderable)

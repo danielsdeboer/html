@@ -1,6 +1,6 @@
 <?php
 
-namespace Aviator\Html\Tests;
+namespace Aviator\Html\Tests\Bags;
 
 use Aviator\Html\Bags\ClassBag;
 use PHPUnit\Framework\TestCase;

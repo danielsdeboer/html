@@ -14,10 +14,10 @@ class FragmentTest extends TestCase
         $tag1 = Tag::make('p');
         $tag2 = Tag::make('div');
 
-        $fragment = new Fragment([$tag1, $tag2]);
+        $fragment = Fragment::make([$tag1, $tag2]);
 
         $expected = $tag1->render() . $tag2->render();
-        $rendered = $fragment->render();
+        $rendered = $fragment->__toString();
 
         $this->assertSame($expected, $rendered);
     }

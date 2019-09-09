@@ -4,7 +4,7 @@ namespace Aviator\Html\Validators;
 
 use Aviator\Html\Exceptions\AttributeDoesNotExist;
 use Aviator\Html\Exceptions\AttributeDoesNotMatchTag;
-use Aviator\Html\Interfaces\Validator;
+use Aviator\Html\Common\Interfaces\Validator;
 
 class AttributeValidator implements Validator
 {

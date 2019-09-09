@@ -1,6 +1,6 @@
 <?php
 
-namespace Aviator\Html\Interfaces;
+namespace Aviator\Html\Common\Interfaces;
 
 interface Validator
 {
