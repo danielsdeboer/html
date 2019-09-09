@@ -10,7 +10,7 @@ interface Node extends Renderable
     public function isVoid (): bool;
 
     /**
-     * @param string|\Aviator\Html\Common\Interfaces\Renderable $contents
+     * @param array|string|\Aviator\Html\Common\Interfaces\Renderable $contents
      */
     public function with ($contents);
 
