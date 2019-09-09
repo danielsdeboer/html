@@ -55,7 +55,7 @@ class Attribute implements Renderable
     /**
      * @return string
      */
-    public function getKey () : string
+    public function getKey (): string
     {
         return $this->name;
     }
@@ -72,7 +72,7 @@ class Attribute implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         if ($this->value === false) {
             return '';

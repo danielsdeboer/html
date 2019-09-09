@@ -34,7 +34,7 @@ class ClassAttribute implements Renderable
     /**
      * @return string
      */
-    public function getName () : string
+    public function getName (): string
     {
         return $this->name;
     }
@@ -43,7 +43,7 @@ class ClassAttribute implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return $this->name;
     }

@@ -42,7 +42,7 @@ class Content implements Renderable
      * @param string $content
      * @return \Aviator\Html\Content
      */
-    public static function unescaped (string $content) : Content
+    public static function unescaped (string $content): Content
     {
         return new self($content, false);
     }
@@ -50,7 +50,7 @@ class Content implements Renderable
     /**
      * @return string
      */
-    public function getName () : string
+    public function getName (): string
     {
         return substr(toSlug($this->content), 0, 45);
     }
@@ -70,7 +70,7 @@ class Content implements Renderable
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return $this->escaped
             ? $this->escapedContent()

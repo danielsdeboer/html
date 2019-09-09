@@ -90,7 +90,7 @@ class AttributeBag extends AbstractBag
      * boolean attributes set to 'false'.
      * @return array
      */
-    private function renderedParts () : array
+    private function renderedParts (): array
     {
         return array_filter(
             array_map([$this, 'renderCb'], $this->items)
@@ -101,7 +101,7 @@ class AttributeBag extends AbstractBag
      * Return a html string representation of the object.
      * @return string
      */
-    public function render () : string
+    public function render (): string
     {
         return implode(' ', $this->renderedParts());
     }
