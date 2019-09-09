@@ -23,4 +23,27 @@ class AttrsTest extends UnitTestCase
 
         $this->assertSame($expected, $attrs->value());
     }
+
+    /** @test */
+    public function getting_a_value (): void
+    {
+        $key = Str::random(8);
+        $value = Str::random(16);
+
+        $attrs = new Attrs([$key => $value]);
+
+        $this->assertSame($value, $attrs->get($key));
+    }
+
+    /** @test */
+    public function check_if_a_key_exists (): void
+    {
+        $key = Str::random(8);
+        $value = Str::random(16);
+
+        $attrs = new Attrs([$key => $value]);
+
+        $this->assertTrue($attrs->has($key));
+        $this->assertFalse($attrs->has(Str::random(8)));
+    }
 }

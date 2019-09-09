@@ -26,4 +26,14 @@ class Attrs implements Param
     {
         return $this->attributes;
     }
+
+    public function get (string $key): string
+    {
+        return $this->attributes[$key];
+    }
+
+    public function has (string $key): bool
+    {
+        return array_key_exists($key, $this->attributes);
+    }
 }

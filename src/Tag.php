@@ -202,10 +202,9 @@ class Tag implements Node
 
     /**
      * Get an attribute value by name.
-     * @param mixed $name
-     * @return mixed|null
+     * @return string|bool|null
      */
-    public function attribute ($name)
+    public function attribute (string $name)
     {
         /** @var \Aviator\Html\Attribute|null $attribute */
         $attribute = $this->attributes->get($name);
