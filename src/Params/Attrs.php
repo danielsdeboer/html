@@ -14,6 +14,11 @@ class Attrs implements Param
         $this->attributes = $attributes;
     }
 
+    public function merge (Attrs $toMerge): void
+    {
+        $this->attributes = array_merge($this->attributes, $toMerge->value());
+    }
+
     /**
      * @return array
      */
