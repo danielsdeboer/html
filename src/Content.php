@@ -2,7 +2,7 @@
 
 namespace Aviator\Html;
 
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Renderable;
 use Aviator\Html\Traits\HasToString;
 
 class Content implements Renderable

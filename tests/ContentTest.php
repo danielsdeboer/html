@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ddeboer
- * Date: 10/10/2017
- * Time: 2:36 PM
- */
 
 namespace Aviator\Html\Tests;
 
 use Aviator\Html\Content;
+use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
@@ -16,9 +11,11 @@ class ContentTest extends TestCase
     /** @test */
     public function creating_content ()
     {
-        $content = new Content('test');
+        $string = Str::random(16);
+        $content = new Content($string);
 
         $this->assertInstanceOf(Content::class, $content);
+        $this->assertSame(toSlug($string), $content->getName());
     }
 
     /** @test */

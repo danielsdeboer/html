@@ -6,8 +6,12 @@ use Aviator\Delegate\Delegate;
 use Aviator\Html\Bags\AttributeBag;
 use Aviator\Html\Bags\ClassBag;
 use Aviator\Html\Bags\ContentBag;
+use Aviator\Html\Common\Interfaces\Param;
 use Aviator\Html\Exceptions\VoidTagsMayNotHaveContent;
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Renderable;
+use Aviator\Html\Params\Classes;
+use Aviator\Html\Params\Name;
+use Aviator\Html\Params\Attrs;
 use Aviator\Html\Traits\HasToString;
 use Aviator\Html\Validators\TagValidator;
 
@@ -15,8 +19,13 @@ class Tag implements Renderable
 {
     use HasToString;
 
+    /** @var string */
     const HTML_OPEN = '<';
+
+    /** @var string */
     const HTML_CLOSE = '>';
+
+    /** @var string */
     const TAG_CLOSE = '/';
 
     /** @var string */
@@ -75,6 +84,19 @@ class Tag implements Renderable
     }
 
     /**
+     * Create a tag with a more expressive syntax. Here we require a Name object
+     * and optionally a
+     * @throws \Aviator\Html\Exceptions\ValidationException
+     */
+    public static function of (Name $name, Param ...$params): self
+    {
+        $classes = self::parseParams(new Classes([]), $params);
+        $attributes = self::parseParams(new Attrs([]), $params);
+
+        return new self($name->value(), $classes->value(), $attributes->value());
+    }
+
+    /**
      * @param mixed $condition
      * @param string $name
      * @param array $classes
@@ -127,7 +149,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param string|\Aviator\Html\Interfaces\Renderable $content
+     * @param string|\Aviator\Html\Common\Interfaces\Renderable $content
      * @return $this
      */
     public function addContent ($content)
@@ -195,7 +217,7 @@ class Tag implements Renderable
     }
 
     /**
-     * @param array|string|\Aviator\Html\Interfaces\Renderable $contents
+     * @param array|string|\Aviator\Html\Common\Interfaces\Renderable $contents
      * @return $this
      * @throws \Aviator\Html\Exceptions\VoidTagsMayNotHaveContent
      */
@@ -353,7 +375,7 @@ class Tag implements Renderable
      */
     public function __get ($name)
     {
-        if ($name === 'attributes') {
+        if ($name === 'attributes' || $name === 'attrs') {
             return $this->attributeDelegator();
         }
 
@@ -372,5 +394,18 @@ class Tag implements Renderable
     public static function __callStatic ($name, $arguments)
     {
         return new static($name, ...$arguments);
+    }
+
+    private static function parseParams (Param $default, array $args): Param
+    {
+        $class = get_class($default);
+
+        foreach ($args as $arg) {
+            if ($arg instanceof $class) {
+                return $arg;
+            }
+        }
+
+        return $default;
     }
 }

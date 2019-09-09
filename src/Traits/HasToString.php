@@ -5,7 +5,7 @@ namespace Aviator\Html\Traits;
 /**
  * Trait HasToString
  * @package Aviator\Html\Traits
- * @mixin \Aviator\Html\Interfaces\Renderable
+ * @mixin \Aviator\Html\Common\Interfaces\Renderable
  */
 trait HasToString
 {

@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ddeboer
- * Date: 10/10/2017
- * Time: 2:36 PM
- */
 
-namespace Aviator\Html\Tests;
+namespace Aviator\Html\Tests\Bags;
 
 use Aviator\Html\Bags\ContentBag;
 use Aviator\Html\Tag;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aviator\Html\Tests;
+namespace Aviator\Html\Tests\Tag;
 
 use Aviator\Html\Tag;
 use PHPUnit\Framework\TestCase;

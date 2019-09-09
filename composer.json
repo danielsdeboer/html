@@ -1,14 +1,6 @@
 {
     "name": "aviator/html",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Aviator\\Html\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
     "require": {
         "php" : ">=7.2.0",
         "cocur/slugify": "^3.0",
@@ -19,7 +11,16 @@
         "nesbot/carbon": "^1.22",
         "dbt/phpunit-runner": "^0.1.2",
         "vimeo/psalm": "^3.2",
-        "larapack/dd": "^1.1"
+        "larapack/dd": "^1.1",
+        "illuminate/support": "~5.8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aviator\\Html\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -28,7 +29,7 @@
     },
     "scripts": {
         "test": "php ./vendor/dbt/phpunit-runner/phpunit.php --no-coverage",
-        "coverage": "phpunit --coverage-html coverage",
+        "coverage": "phpunit --coverage-html reports/coverage",
         "stat": "psalm"
     }
 }

@@ -2,15 +2,15 @@
 
 namespace Aviator\Html\Bags;
 
-use Aviator\Html\Interfaces\Bag;
-use Aviator\Html\Interfaces\Renderable;
+use Aviator\Html\Common\Interfaces\Bag;
+use Aviator\Html\Common\Interfaces\Renderable;
 use Aviator\Html\Traits\HasToString;
 
 abstract class AbstractBag implements Renderable, Bag
 {
     use HasToString;
 
-    /** @var \Aviator\Html\Interfaces\Renderable[] */
+    /** @var \Aviator\Html\Common\Interfaces\Renderable[] */
     protected $items = [];
 
     /**
@@ -48,7 +48,7 @@ abstract class AbstractBag implements Renderable, Bag
 
     /**
      * Add a single renderable item.
-     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @param \Aviator\Html\Common\Interfaces\Renderable $item
      * @return \Aviator\Html\Bags\AbstractBag
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
@@ -89,7 +89,7 @@ abstract class AbstractBag implements Renderable, Bag
 
     /**
      * @param string $carry
-     * @param \Aviator\Html\Interfaces\Renderable $item
+     * @param \Aviator\Html\Common\Interfaces\Renderable $item
      * @return string
      */
     abstract public function reduceCb($carry, Renderable $item);
