@@ -31,7 +31,7 @@ class ContentTest extends TestCase
     {
         $string = Content::unescaped('test>')->render();
 
-        $this->assertContains('test>', $string);
+        $this->assertStringContainsString('test>', $string);
     }
 
     /** @test */
