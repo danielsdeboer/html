@@ -91,7 +91,7 @@ class TagTest extends TestCase
     {
         $tag = Tag::make('div', '');
 
-        $this->assertNotContains('class=""', $tag->render());
+        $this->assertStringNotContainsString('class=""', $tag->render());
     }
 
     /** @test */
@@ -346,7 +346,7 @@ class TagTest extends TestCase
     {
         $tag = tag('div')->with(1)->dontClose()->render();
 
-        $this->assertNotContains($tag, '</div>');
+        $this->assertStringNotContainsString($tag, '</div>');
     }
 
     /** @test */
